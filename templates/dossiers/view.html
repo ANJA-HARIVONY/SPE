@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Dossier {{ dossier.reference }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2>Dossier {{ dossier.reference }}</h2>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('dossiers.update', id=dossier.id) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            {% if current_user.role == 'admin' or current_user.role == 'chef' %}
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transferModal">
+                <i class="fas fa-exchange-alt"></i> Transférer
+            </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Informations du dossier -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Informations du dossier</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Référence :</strong> {{ dossier.reference }}</p>
+                            <p><strong>Référence SPE :</strong> {{ dossier.reference_spe or 'Non spécifiée' }}</p>
+                            <p><strong>Date de création :</strong> {{ dossier.date_creation.strftime('%d/%m/%Y') }}</p>
+                            <p><strong>Objet :</strong> {{ dossier.objet }}</p>
+                            <p><strong>Titulaire :</strong> {{ dossier.titulaire }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Destinataire :</strong> {{ dossier.destinataire }}</p>
+                            <p><strong>Pays :</strong> {{ dossier.pays }}</p>
+                            <p><strong>Service :</strong> {{ dossier.service.nom }}</p>
+                            <p><strong>Statut :</strong> 
+                                <span class="badge bg-{{ 'success' if dossier.statut == 'Terminé' else 'warning' if dossier.statut == 'En cours' else 'secondary' }}">
+                                    {{ dossier.statut }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    {% if dossier.observation %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p><strong>Observation :</strong></p>
+                            <p class="text-muted">{{ dossier.observation }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Historique -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Historique des actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        {% for action in historique %}
+                        <div class="timeline-item mb-4">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h6 class="mb-1">{{ action.action }}</h6>
+                                <p class="text-muted mb-1">
+                                    <small>
+                                        <i class="fas fa-user"></i> {{ action.user.username }} |
+                                        <i class="fas fa-building"></i> {{ action.service.nom }} |
+                                        <i class="fas fa-clock"></i> {{ action.date_action.strftime('%d/%m/%Y %H:%M') }}
+                                    </small>
+                                </p>
+                                <p class="mb-0">{{ action.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Statistiques -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Statistiques</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Date de création :</strong> {{ dossier.date_creation.strftime('%d/%m/%Y') }}</p>
+                    <p><strong>Nombre d'actions :</strong> {{ historique|length }}</p>
+                    <p><strong>Dernière action :</strong> {{ historique[0].date_action.strftime('%d/%m/%Y %H:%M') if historique else 'Aucune' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de transfert -->
+<div class="modal fade" id="transferModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Transférer le dossier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('dossiers.transfer', id=dossier.id) }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="service_id" class="form-label">Service de destination</label>
+                        <select class="form-select" name="service_id" required>
+                            <option value="">Sélectionner un service</option>
+                            {% for service in services %}
+                            <option value="{{ service.id }}">{{ service.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="observation" class="form-label">Observation</label>
+                        <textarea class="form-control" name="observation_transfert" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Transférer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: #dee2e6;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    margin-left: -1px;
+}
+.timeline-item {
+    position: relative;
+    padding-left: 50px;
+}
+.timeline-marker {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0d6efd;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #0d6efd;
+}
+</style>
+{% endblock %} 

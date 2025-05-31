@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Nouveau dossier{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Nouveau dossier</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="reference" class="form-label">Référence</label>
+                                <input type="text" class="form-control" id="reference" name="reference" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="reference_spe" class="form-label">Référence SPE</label>
+                                <input type="text" class="form-control" id="reference_spe" name="reference_spe">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="date_creation" class="form-label">Date de création</label>
+                                <input type="date" class="form-control" id="date_creation" name="date_creation" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="pays" class="form-label">Pays</label>
+                                <input type="text" class="form-control" id="pays" name="pays" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="titulaire" class="form-label">Titulaire</label>
+                                <input type="text" class="form-control" id="titulaire" name="titulaire" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="destinataire" class="form-label">Destinataire</label>
+                                <input type="text" class="form-control" id="destinataire" name="destinataire" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="objet" class="form-label">Objet</label>
+                            <input type="text" class="form-control" id="objet" name="objet" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observation" class="form-label">Observation</label>
+                            <textarea class="form-control" id="observation" name="observation" rows="3"></textarea>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('dossiers.index') }}" class="btn btn-secondary">Annuler</a>
+                            <button type="submit" class="btn btn-primary">Créer</button>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %} 

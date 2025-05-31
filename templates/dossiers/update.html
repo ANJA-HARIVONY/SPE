@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Modifier le dossier {{ dossier.reference }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Modifier le dossier</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="reference" class="form-label">Référence</label>
+                                <input type="text" class="form-control" id="reference" value="{{ dossier.reference }}" disabled>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="reference_spe" class="form-label">Référence SPE</label>
+                                <input type="text" class="form-control" id="reference_spe" name="reference_spe" value="{{ dossier.reference_spe }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="date_creation" class="form-label">Date de création</label>
+                                <input type="date" class="form-control" id="date_creation" name="date_creation" value="{{ dossier.date_creation.strftime('%Y-%m-%d') }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="pays" class="form-label">Pays</label>
+                                <input type="text" class="form-control" id="pays" name="pays" value="{{ dossier.pays }}" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="titulaire" class="form-label">Titulaire</label>
+                                <input type="text" class="form-control" id="titulaire" name="titulaire" value="{{ dossier.titulaire }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="destinataire" class="form-label">Destinataire</label>
+                                <input type="text" class="form-control" id="destinataire" name="destinataire" value="{{ dossier.destinataire }}" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="objet" class="form-label">Objet</label>
+                            <input type="text" class="form-control" id="objet" name="objet" value="{{ dossier.objet }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observation" class="form-label">Observation</label>
+                            <textarea class="form-control" id="observation" name="observation" rows="3">{{ dossier.observation }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="statut" class="form-label">Statut</label>
+                            <select class="form-select" id="statut" name="statut" required>
+                                <option value="En cours" {% if dossier.statut == 'En cours' %}selected{% endif %}>En cours</option>
+                                <option value="Terminé" {% if dossier.statut == 'Terminé' %}selected{% endif %}>Terminé</option>
+                                <option value="Archivé" {% if dossier.statut == 'Archivé' %}selected{% endif %}>Archivé</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('dossiers.view', id=dossier.id) }}" class="btn btn-secondary">Annuler</a>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

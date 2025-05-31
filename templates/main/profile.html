@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h3 class="text-center">Profil utilisateur</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center">
+                            <div class="avatar-circle mb-3">
+                                <i class="fas fa-user fa-3x"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>{{ current_user.username }}</h4>
+                            <p class="text-muted">
+                                <i class="fas fa-envelope"></i> {{ current_user.email }}<br>
+                                <i class="fas fa-user-tag"></i> {{ current_user.role }}<br>
+                                <i class="fas fa-building"></i> {{ current_user.service.nom if current_user.service else 'Aucun service' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Statistiques</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Dossiers créés :</strong> {{ current_user.actions|length }}</p>
+                                    <p><strong>Dernière action :</strong> {{ current_user.actions[0].date_action.strftime('%d/%m/%Y %H:%M') if current_user.actions else 'Aucune' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Actions récentes</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        {% for action in current_user.actions[:5] %}
+                                        <div class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">{{ action.action }}</h6>
+                                                <small>{{ action.date_action.strftime('%d/%m/%Y %H:%M') }}</small>
+                                            </div>
+                                            <p class="mb-1">{{ action.description }}</p>
+                                            <small>Dossier : {{ action.dossier.reference }}</small>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.avatar-circle i {
+    color: #6c757d;
+}
+</style>
+{% endblock %} 

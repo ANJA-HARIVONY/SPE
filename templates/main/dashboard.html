@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Tableau de bord</h2>
+
+    <!-- Statistiques -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">Total des dossiers</h6>
+                            <h2 class="mb-0">{{ total_dossiers }}</h2>
+                        </div>
+                        <i class="fas fa-folder fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">Dossiers en cours</h6>
+                            <h2 class="mb-0">{{ dossiers_en_cours }}</h2>
+                        </div>
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">Dossiers terminés</h6>
+                            <h2 class="mb-0">{{ dossiers_termines }}</h2>
+                        </div>
+                        <i class="fas fa-check-circle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liste des dossiers récents -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Dossiers récents</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date de création</th>
+                            <th>Référence DGBF</th>
+                            <th>Référence SPE</th>
+                            <th>Titulaire</th>
+                            <th>Objet</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dossier in dossiers %}
+                        <tr>
+                            <td>{{ dossier.date_creation.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ dossier.reference }}</td>
+                            <td>{{ dossier.reference_spe }}</td>
+                            <td>{{ dossier.titulaire }}</td>
+                            <td>{{ dossier.objet }}</td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if dossier.statut == 'Terminé' else 'warning' if dossier.statut == 'En cours' else 'secondary' }}">
+                                    {{ dossier.statut }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ url_for('dossiers.view', id=dossier.id) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ url_for('dossiers.update', id=dossier.id) }}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Graphique des statistiques
+    const ctx = document.getElementById('statsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['En cours', 'Terminés'],
+            datasets: [{
+                data: [{{ dossiers_en_cours }}, {{ dossiers_termines }}],
+                backgroundColor: ['#ffc107', '#28a745']
+            }]
+        }
+    });
+</script>
+{% endblock %} 
