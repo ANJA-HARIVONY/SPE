@@ -31,4 +31,8 @@ def dashboard():
 @bp.route('/profile')
 @login_required
 def profile():
-    return render_template('main/profile.html') 
+    return render_template('main/profile.html')
+
+@bp.route('/help')
+def help():
+    return render_template('help/index.html') 

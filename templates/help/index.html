@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Aide - Gestion des Dossiers{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4"><i class="fas fa-question-circle"></i> Guide d'Utilisation</h1>
+
+    <!-- Navigation rapide -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-list"></i> Navigation Rapide</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="#connexion"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                        <li class="list-group-item"><a href="#tableau-bord"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="#dossiers"><i class="fas fa-folder"></i> Gestion des dossiers</a></li>
+                        <li class="list-group-item"><a href="#services"><i class="fas fa-building"></i> Gestion des services</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="#utilisateurs"><i class="fas fa-users"></i> Gestion des utilisateurs</a></li>
+                        <li class="list-group-item"><a href="#faq"><i class="fas fa-question"></i> FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Connexion -->
+    <section id="connexion" class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-sign-in-alt"></i> Connexion</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5>Comment se connecter ?</h5>
+                <ol>
+                    <li>Accédez à la page de connexion</li>
+                    <li>Entrez votre nom d'utilisateur</li>
+                    <li>Entrez votre mot de passe</li>
+                    <li>Cliquez sur "Se connecter"</li>
+                </ol>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Si vous avez oublié votre mot de passe, contactez votre administrateur.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Tableau de bord -->
+    <section id="tableau-bord" class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-tachometer-alt"></i> Tableau de bord</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5>Fonctionnalités principales</h5>
+                <ul>
+                    <li>Vue d'ensemble des dossiers en cours</li>
+                    <li>Statistiques des dossiers par service</li>
+                    <li>Dossiers récemment modifiés</li>
+                    <li>Actions rapides</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Dossiers -->
+    <section id="dossiers" class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-folder"></i> Gestion des dossiers</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5>Actions disponibles</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-plus"></i> Créer un dossier</h6>
+                        <ol>
+                            <li>Cliquez sur "Nouveau dossier"</li>
+                            <li>Remplissez tous les champs obligatoires</li>
+                            <li>Cliquez sur "Enregistrer"</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-search"></i> Rechercher un dossier</h6>
+                        <ol>
+                            <li>Utilisez la barre de recherche</li>
+                            <li>Filtrez par service ou statut</li>
+                            <li>Cliquez sur un dossier pour voir les détails</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Services -->
+    <section id="services" class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-building"></i> Gestion des services</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i> Cette section n'est accessible qu'aux administrateurs.
+                </div>
+                <h5>Fonctionnalités</h5>
+                <ul>
+                    <li>Création de nouveaux services</li>
+                    <li>Modification des services existants</li>
+                    <li>Affectation des utilisateurs aux services</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Utilisateurs -->
+    <section id="utilisateurs" class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-users"></i> Gestion des utilisateurs</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i> Cette section n'est accessible qu'aux administrateurs.
+                </div>
+                <h5>Rôles disponibles</h5>
+                <ul>
+                    <li><strong>Administrateur :</strong> Accès complet à toutes les fonctionnalités</li>
+                    <li><strong>Chef de service :</strong> Gestion des dossiers de son service</li>
+                    <li><strong>Agent :</strong> Gestion basique des dossiers</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section FAQ -->
+    <section id="faq" class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-question"></i> Questions fréquentes</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        Comment transférer un dossier vers un autre service ?
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <ol>
+                            <li>Ouvrez le dossier concerné</li>
+                            <li>Cliquez sur "Transférer"</li>
+                            <li>Sélectionnez le service de destination</li>
+                            <li>Ajoutez un commentaire si nécessaire</li>
+                            <li>Confirmez le transfert</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        Comment archiver un dossier ?
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <ol>
+                            <li>Ouvrez le dossier à archiver</li>
+                            <li>Cliquez sur "Archiver"</li>
+                            <li>Confirmez l'archivage</li>
+                        </ol>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Un dossier archivé peut toujours être consulté mais ne peut plus être modifié.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="mb-5">
+        <h2 class="border-bottom pb-2"><i class="fas fa-envelope"></i> Besoin d'aide supplémentaire ?</h2>
+        <div class="card">
+            <div class="card-body">
+                <p>Pour toute question ou assistance supplémentaire, n'hésitez pas à contacter :</p>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> Email : <a href="mailto:rilonyainafanasina@gmail.com">rilonyainafanasina@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %} 
