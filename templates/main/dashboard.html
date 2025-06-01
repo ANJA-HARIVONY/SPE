@@ -3,46 +3,66 @@
 {% block title %}Tableau de bord{% endblock %}
 
 {% block content %}
+<style>
+    .dashboard-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .dashboard-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .stat-icon {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .dashboard-card:hover .stat-icon {
+        transform: scale(1.2);
+    }
+</style>
+
 <div class="container-fluid">
     <h2 class="mb-4">Tableau de bord</h2>
 
     <!-- Statistiques -->
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card bg-primary text-white">
+            <div class="card bg-primary text-white dashboard-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title">Total des dossiers</h6>
                             <h2 class="mb-0">{{ total_dossiers }}</h2>
                         </div>
-                        <i class="fas fa-folder fa-2x"></i>
+                        <i class="fas fa-folder fa-2x stat-icon"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-warning text-white">
+            <div class="card bg-warning text-white dashboard-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title">Dossiers en cours</h6>
                             <h2 class="mb-0">{{ dossiers_en_cours }}</h2>
                         </div>
-                        <i class="fas fa-clock fa-2x"></i>
+                        <i class="fas fa-clock fa-2x stat-icon"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-success text-white">
+            <div class="card bg-success text-white dashboard-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="card-title">Dossiers terminés</h6>
                             <h2 class="mb-0">{{ dossiers_termines }}</h2>
                         </div>
-                        <i class="fas fa-check-circle fa-2x"></i>
+                        <i class="fas fa-check-circle fa-2x stat-icon"></i>
                     </div>
                 </div>
             </div>
@@ -50,7 +70,7 @@
     </div>
 
     <!-- Liste des dossiers récents -->
-    <div class="card">
+    <div class="card dashboard-card">
         <div class="card-header">
             <h5 class="card-title mb-0">Dossiers récents</h5>
         </div>
@@ -60,8 +80,8 @@
                     <thead>
                         <tr>
                             <th>Date de création</th>
-                            <th>Référence DGBF</th>
-                            <th>Référence SPE</th>
+                            <th>Réf DGBF</th>
+                            <th>Réf SPE</th>
                             <th>Titulaire</th>
                             <th>Objet</th>
                             <th>Statut</th>

@@ -38,8 +38,7 @@
                         </div>
                         <div class="col-md-6">
                             <p><strong>Destinataire :</strong> {{ dossier.destinataire }}</p>
-                            <p><strong>Pays :</strong> {{ dossier.pays }}</p>
-                            <p><strong>Service :</strong> {{ dossier.service.nom }}</p>
+                            <p><strong>Pays/Ville :</strong> {{ dossier.pays }}</p>
                             <p><strong>Statut :</strong> 
                                 <span class="badge bg-{{ 'success' if dossier.statut == 'Terminé' else 'warning' if dossier.statut == 'En cours' else 'secondary' }}">
                                     {{ dossier.statut }}

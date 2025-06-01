@@ -18,8 +18,8 @@
                     <thead>
                         <tr>
                             <th>Date de reception</th>
-                            <th>Référence DGBF</th>
-                            <th>Référence SPE</th>
+                            <th>Réf DGBF</th>
+                            <th>Réf SPE</th>
                             <th>Destinataire</th>
                             <th>Pays/Ville</th>
                             <th>Titulaire</th>
@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ dossier.date_creation.strftime('%d/%m/%Y') }}</td>
                             <td>{{ dossier.reference }}</td>
-                            <td>{{ dossier.reference_spe }} yes</td>
+                            <td>{{ dossier.reference_spe }}</td>
                             <td>{{ dossier.destinataire }}</td>
                             <td>{{ dossier.pays }}</td>
                             <td>{{ dossier.titulaire }}</td>

@@ -19,8 +19,8 @@ def dashboard():
     
     # Statistiques
     total_dossiers = len(dossiers)
-    dossiers_en_cours = len([d for d in dossiers if d.statut == 'en_cours'])
-    dossiers_termines = len([d for d in dossiers if d.statut == 'termine'])
+    dossiers_en_cours = len([d for d in dossiers if d.statut == 'En cours'])
+    dossiers_termines = len([d for d in dossiers if d.statut == 'Terminé'])
     
     return render_template('main/dashboard.html',
                          dossiers=dossiers,
